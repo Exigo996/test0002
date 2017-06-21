@@ -1,4 +1,26 @@
 <head>
 </head>
+
 <body>
+    <h1>Video</h1>
+    <h1 id='hai'></h1>
+    <form>
+        <div>
+            <label>Select a video</label>
+            <input type="file" accept="video/*" />
+            <button type="submit">Get Info</button>
+        </div>
+    </form>
+    <script>
+        const electron = require('electron');
+        const {ipcRenderer} = electron;
+
+        document.querySelector('form').addEventListener( 'submit', ( event ) => {
+            event.preventDefault(); 
+            //debugger; 
+            const { path } = document.querySelector( 'input' ).files[0];        
+            ipcRenderer.send('dupa123', path);
+            ipcRenderer.on('dupa321', (event, duration)=>{document.querySelector('#hai').innerHTML = `Length: ${duration}`})
+        });
+    </script>
 </body>
